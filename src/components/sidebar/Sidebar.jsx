@@ -3,10 +3,10 @@ import { useState } from "react";
 
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
-import SettingsIcon from "@mui/icons-material/Settings";
+// import SettingsIcon from "@mui/icons-material/Settings";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+
 import LogoutIcon from "@mui/icons-material/Logout";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -21,6 +21,7 @@ function Sidebar({ username, collapsed, setCollapsed }) {
   // const [collapsed, setCollapsed] = useState(true);
   const [assetOpen, setAssetOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [custodianOpen, setCustodianOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("username");
@@ -28,16 +29,12 @@ function Sidebar({ username, collapsed, setCollapsed }) {
   };
 
   const menuItems = [
-    { name: "Home", icon: <HomeIcon />, path: "/home" },
-    { name: "Profile", icon: <PersonIcon />, path: "/profile" },
-    { name: "Analytics", icon: <BarChartIcon />, path: "/analytics" },
-    { name: "Messages", icon: <MailIcon />, path: "/messages" },
-    { name: "Custodians", icon: <PersonIcon />, path: "/custodians" },
-    { name: "Add Custodian", icon: <PersonAddIcon />, path: "/custodian/add" },
-    { name: "Notifications", icon: <NotificationsIcon />, path: "/notifications" },
-    { name: "Settings", icon: <SettingsIcon />, path: "/settings" },
-    { name: "Mail", icon: <MailIcon />, path: "/mail" },
-  ];
+  { name: "Home", icon: <HomeIcon />, path: "/home" },
+ 
+  { name: "Profile", icon: <PersonIcon />, path: "/profile" },
+  // { name: "Analytics", icon: <BarChartIcon />, path: "/analytics" },
+  { name: "Mail", icon: <MailIcon />, path: "/mail" },
+];
 
   const menuItemClass = (path) =>
     `group flex items-center p-3 rounded-xl cursor-pointer transition-all duration-300
@@ -64,6 +61,43 @@ function Sidebar({ username, collapsed, setCollapsed }) {
               {!collapsed && item.name}
             </li>
           ))}
+          {/* Custodian Management */}
+<li>
+  <div
+    onClick={() => !collapsed && setCustodianOpen(!custodianOpen)}
+    className={`group flex items-center ${
+      collapsed ? "justify-center" : "justify-between"
+    } p-3 rounded-xl cursor-pointer text-white hover:bg-white/20 transition`}
+  >
+    <div className={`flex items-center ${collapsed ? "" : "gap-3"}`}>
+      <PersonIcon />
+      {!collapsed && "Custodian Management"}
+    </div>
+
+    {!collapsed &&
+      (custodianOpen ? <ExpandMoreIcon /> : <ChevronRightIcon />)}
+  </div>
+
+  {custodianOpen && !collapsed && (
+    <ul className="ml-6 mt-2 space-y-2 text-sm">
+
+      <li
+        onClick={() => navigate("/custodian/view")}
+        className={menuItemClass("/custodian/view")}
+      >
+        View Custodians
+      </li>
+
+      <li
+        onClick={() => navigate("/custodian/add")}
+        className={menuItemClass("/custodian/add")}
+      >
+        Add Custodian
+      </li>
+
+    </ul>
+  )}
+</li>
 
           {/* Asset Management */}
           <li>
@@ -107,6 +141,11 @@ function Sidebar({ username, collapsed, setCollapsed }) {
               </ul>
             )}
           </li>
+
+
+
+        
+
         </ul>
       </div>
 

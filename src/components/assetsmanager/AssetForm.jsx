@@ -130,36 +130,6 @@ const AssetForm = () => {
 
  
 
-  // const Input = ({ label, name }) => (
-  //   <div>
-  //     <label className="block text-sm font-medium mb-1">{label} <span className="text-red-500">*</span></label>
-  //     <input
-  //       name={name}
-  //       value={formData[name]}
-  //       onChange={handleChange}
-  //       className={`w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 outline-none shadow-sm
-  //         ${errors[name] ? "border-red-500" : "border-gray-300"}`}
-  //     />
-  //     {errors[name] && <p className="text-red-500 text-xs mt-1">{errors[name]}</p>}
-  //   </div>
-  // );
-
-  // const Select = ({ label, name, options }) => (
-  //   <div>
-  //     <label className="block text-sm font-medium mb-1">{label} <span className="text-red-500">*</span></label>
-  //     <select
-  //       name={name}
-  //       value={formData[name]}
-  //       onChange={handleChange}
-  //       className={`w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 outline-none shadow-sm
-  //         ${errors[name] ? "border-red-500" : "border-gray-300"}`}
-  //     >
-  //       <option value="">Select {label}</option>
-  //       {options.map((o) => <option key={o}>{o}</option>)}
-  //     </select>
-  //     {errors[name] && <p className="text-red-500 text-xs mt-1">{errors[name]}</p>}
-  //   </div>
-  // );
   
 
   const DateField = ({ label, name }) => (
@@ -179,8 +149,25 @@ const AssetForm = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center p-6">
-      <div className="bg-white w-full max-w-5xl p-10 rounded-2xl shadow-xl border border-gray-200">
-      <AssetStepper step={step} />
+   <div className="bg-white w-full max-w-5xl p-10 rounded-2xl shadow-xl border border-gray-200">
+
+  {/* Header */}
+  <div className="flex items-center justify-between mb-6">
+    
+    <h1 className="text-2xl font-bold text-gray-800">
+      Asset Registration
+    </h1>
+
+    <button
+      onClick={() => navigate("/assets")}
+      className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
+    >
+      Back
+    </button>
+
+  </div>
+
+  <AssetStepper step={step} />
 
         <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-6">
 

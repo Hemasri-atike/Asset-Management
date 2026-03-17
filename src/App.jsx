@@ -11,10 +11,17 @@ import Messages from "./components/sidebar/Messages";
 import Notifications from "./components/sidebar/Notifications";
 import Analytics from "./components/sidebar/Analytics";
 import Assets from "./components/assetsmanager/Assets";
+
+
 import AssetForm from "./components/assetsmanager/AssetForm";
 import SendMail from "./components/mail/SendMail";
 import EditAsset from "./components/assetsmanager/AssetsEdit";
 import AddCustodian from "./components/custodian/AddCustodian";
+import Custodian from "./components/custodian/Custodian";
+import  EditCustodian from "./components/custodian/EditCustodian";
+
+
+
 
 
 
@@ -37,12 +44,18 @@ function App() {
           <Route path="/messages" element={<Messages />} />
 <Route path="/analytics" element={<Analytics />} />
 <Route path="/notifications" element={<Notifications />} />
+
 <Route path="/assets" element={<Assets />} />
 
 <Route path="/assets/add" element={<AssetForm />} />
 <Route path="mail" element={<SendMail />} />
 <Route path="/assets/edit/:id" element={<EditAsset />} />
 <Route path="/custodian/add" element={<AddCustodian />} />
+<Route path="/custodian/view" element={<Custodian />} />
+<Route path="/custodian/edit/:id" element={<EditCustodian />} />  
+
+
+
         </Route>
 
       </Routes>

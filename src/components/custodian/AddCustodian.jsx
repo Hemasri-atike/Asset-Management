@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import {
   Card,
@@ -6,15 +8,10 @@ import {
   TextField,
   Button,
   MenuItem,
-  Typography,
-  IconButton
+  Typography
 } from "@mui/material";
 
-import { DataGrid } from "@mui/x-data-grid";
-
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 const departments = [
   "Information Technology",
@@ -41,7 +38,7 @@ const initialFormState = {
 export default function AddCustodian() {
 
   const [formData, setFormData] = useState(initialFormState);
-  const [rows, setRows] = useState([]);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -50,92 +47,49 @@ export default function AddCustodian() {
     });
   };
 
-  const handleAdd = () => {
+ const handleAdd = async () => {
 
-    const newRow = {
-      id: rows.length + 1,
+  try {
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    await axios.post("http://localhost:5000/custodians", {
       custodianId: formData.custodianId,
-      department: formData.department,
       custodianName: formData.custodianName,
+      department: formData.department,
       designation: formData.designation,
-      authority: formData.reportingAuthority,
+      reportingAuthority: formData.reportingAuthority,
       email: formData.email,
-      username: formData.userName,
-      status: "Active",
-      createdDate: new Date().toLocaleDateString(),
-    };
-
-    setRows([...rows, newRow]);
-
-    // Clear form
-    setFormData(initialFormState);
-  };
-
-  const handleDelete = (id) => {
-    setRows(rows.filter((row) => row.id !== id));
-  };
-
-  const handleEdit = (row) => {
-
-    setFormData({
-      custodianId: row.custodianId,
-      department: row.department,
-      designation: row.designation,
-      userName: row.username,
-      custodianName: row.custodianName,
-      reportingAuthority: row.authority,
-      email: row.email,
-      phone: "",
-      password: "",
-      confirmPassword: "",
+      userName: formData.userName,
+      phone: formData.phone,
+      password: formData.password
     });
 
-    setRows(rows.filter((r) => r.id !== row.id));
-  };
+    alert("Custodian Added Successfully");
 
-  const columns = [
-    { field: "custodianId", headerName: "Custodian ID", flex: 1 },
-    { field: "department", headerName: "Department", flex: 1 },
-    { field: "custodianName", headerName: "Custodian Name", flex: 1 },
-    { field: "designation", headerName: "Designation", flex: 1 },
-    { field: "authority", headerName: "Reporting Authority", flex: 1 },
-    { field: "email", headerName: "Email ID", flex: 1 },
-    { field: "username", headerName: "USERNAME", flex: 1 },
-    { field: "status", headerName: "Status", flex: 1 },
-    { field: "createdDate", headerName: "Created Date", flex: 1 },
+    setFormData(initialFormState);
 
-    {
-      field: "actions",
-      headerName: "Actions",
-      width: 120,
-      renderCell: (params) => (
-        <>
-          <IconButton
-            color="primary"
-            onClick={() => handleEdit(params.row)}
-          >
-            <EditIcon />
-          </IconButton>
+    navigate("/custodian/view");
 
-          <IconButton
-            color="error"
-            onClick={() => handleDelete(params.row.id)}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </>
-      ),
-    },
-  ];
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+};
 
   return (
-    <div className="p-15 bg-gray-100 min-h-screen">
+    <div className="p-10 bg-gray-100 min-h-screen">
 
       <Typography variant="h5" className="font-bold mb-6">
         Add Custodian
       </Typography>
 
-      <Card className="shadow-lg mb-8">
+      <Card className="shadow-lg max-w-5xl">
         <CardContent>
 
           <div className="grid grid-cols-2 gap-x-16 gap-y-6">
@@ -179,7 +133,7 @@ export default function AddCustodian() {
               label="Reporting Authority"
               name="reportingAuthority"
               size="small"
-              value={formData.reportingAuthority}
+              value={formData.reporting_authority}
               onChange={handleChange}
               fullWidth
             >
@@ -258,27 +212,8 @@ export default function AddCustodian() {
                 "&:hover": { backgroundColor: "#ea580c" },
               }}
             >
-              ADD
+              Add 
             </Button>
-          </div>
-
-        </CardContent>
-      </Card>
-
-      <Card className="shadow-lg">
-        <CardContent>
-
-          <Typography variant="h6" className="mb-4">
-            Custodian List
-          </Typography>
-
-          <div style={{ height: 400 }}>
-            <DataGrid
-              rows={rows}
-              columns={columns}
-              pageSize={5}
-              rowsPerPageOptions={[5]}
-            />
           </div>
 
         </CardContent>
