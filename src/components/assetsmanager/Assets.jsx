@@ -10,10 +10,26 @@ import autoTable from "jspdf-autotable";
 
 import { Button, Tooltip, IconButton } from "@mui/material";
 import { FaFileExcel, FaFilePdf, FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+const defaultColumns = [
+  "assetId",
+  "assetNumber",
+  "assetClass",
+  "assetDescription",
+  "custodianName",
+  "locationId",
+  "department",
+   "materialNumber",
+  "poNumber",
+  "wbsNumber",
+  "assetVendor",
+  "department",
+  "remarks",
+];
+
 
 const Assets = () => {
   const navigate = useNavigate();
-  const [visibleColumns, setVisibleColumns] = useState(allColumns);
+    const [visibleColumns, setVisibleColumns] = useState(defaultColumns);
   const [assets, setAssets] = useState([]);
 
   const formatDateForUI = (date) =>
@@ -110,49 +126,40 @@ const Assets = () => {
     Asset Management
   </h1>
 
-  <div className="flex flex-wrap justify-between items-center gap-4">
+  {/* ALL BUTTONS IN ONE LINE */}
+  <div className="flex flex-wrap items-center gap-3">
 
-    {/* Left Buttons */}
-    <div className="flex gap-3 flex-wrap">
+    <Button
+      variant="contained"
+      color="primary"
+      startIcon={<FaPlus />}
+      onClick={() => navigate("/assets/add")}
+    >
+      Add Asset
+    </Button>
 
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<FaPlus />}
-        onClick={() => navigate("/assets/add")}
-      >
-        Add Asset
-      </Button>
+    <CustomizeColumns
+      visibleColumns={visibleColumns}
+      setVisibleColumns={setVisibleColumns}
+    />
 
-      <CustomizeColumns
-        visibleColumns={visibleColumns}
-        setVisibleColumns={setVisibleColumns}
-      />
+    <Button
+      variant="contained"
+      color="success"
+      startIcon={<FaFileExcel />}
+      onClick={handleExportExcel}
+    >
+      Export Excel
+    </Button>
 
-    </div>
-
-    {/* Right Buttons */}
-    <div className="flex gap-3 flex-wrap">
-
-      <Button
-        variant="contained"
-        color="success"
-        startIcon={<FaFileExcel />}
-        onClick={handleExportExcel}
-      >
-        Export Excel
-      </Button>
-
-      <Button
-        variant="contained"
-        color="error"
-        startIcon={<FaFilePdf />}
-        onClick={handleExportPDF}
-      >
-        Export PDF
-      </Button>
-
-    </div>
+    <Button
+      variant="contained"
+      color="error"
+      startIcon={<FaFilePdf />}
+      onClick={handleExportPDF}
+    >
+      Export PDF
+    </Button>
 
   </div>
 </div>
