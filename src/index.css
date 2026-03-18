@@ -6,7 +6,7 @@
 body {
   font-family: 'Inter', sans-serif;
 }
-/* If you installed tailwind-scrollbar plugin */
+/* If you installed tailwind-scrollbar plugin
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -29,4 +29,37 @@ body {
 }
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: #6b7280;
+} */
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 🔥 Global Scrollbar Styling */
+
+/* width (vertical) & height (horizontal) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track (background) */
+::-webkit-scrollbar-track {
+  background: #f1f5f9; /* light slate */
+  border-radius: 10px;
+}
+
+/* Thumb (draggable part) */
+::-webkit-scrollbar-thumb {
+  background: #475569; /* slate-600 */
+  border-radius: 10px;
+}
+
+/* Hover effect */
+::-webkit-scrollbar-thumb:hover {
+  background: #334155; /* darker */
+}
+html {
+  scroll-behavior: smooth;
 }

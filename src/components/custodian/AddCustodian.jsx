@@ -56,17 +56,17 @@ export default function AddCustodian() {
       return;
     }
 
-    await axios.post("http://localhost:5000/custodians", {
-      custodianId: formData.custodianId,
-      custodianName: formData.custodianName,
-      department: formData.department,
-      designation: formData.designation,
-      reportingAuthority: formData.reportingAuthority,
-      email: formData.email,
-      userName: formData.userName,
-      phone: formData.phone,
-      password: formData.password
-    });
+   await axios.post("http://localhost:5000/custodians", {
+  custodianId: formData.custodianId,
+  custodianName: formData.custodianName,
+  department: formData.department,
+  designation: formData.designation,
+  authority: formData.reportingAuthority,   // ✅ FIXED
+  email: formData.email,
+  userName: formData.userName,
+  phone: formData.phone,
+  password: formData.password
+});
 
     alert("Custodian Added Successfully");
 
@@ -129,20 +129,20 @@ export default function AddCustodian() {
             </TextField>
 
             <TextField
-              select
-              label="Reporting Authority"
-              name="reportingAuthority"
-              size="small"
-              value={formData.reporting_authority}
-              onChange={handleChange}
-              fullWidth
-            >
-              {authorities.map((a) => (
-                <MenuItem key={a} value={a}>
-                  {a}
-                </MenuItem>
-              ))}
-            </TextField>
+  select
+  label="Reporting Authority"
+  name="reportingAuthority"
+  size="small"
+  value={formData.reporting_authority}   // ✅ FIXED
+  onChange={handleChange}
+  fullWidth
+>
+  {authorities.map((a) => (
+    <MenuItem key={a} value={a}>
+      {a}
+    </MenuItem>
+  ))}
+</TextField>
 
             <TextField
               label="Designation"

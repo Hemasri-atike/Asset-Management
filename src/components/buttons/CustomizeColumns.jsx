@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 
-// const [visibleColumns, setVisibleColumns] = useState(defaultColumns);
+
 
 const allColumns = [
   "assetId",

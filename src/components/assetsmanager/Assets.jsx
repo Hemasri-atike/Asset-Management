@@ -168,11 +168,13 @@ const Assets = () => {
 
 
       {/* Table */}
- <div className="bg-white rounded-xl shadow-md border border-gray-200 mt-4 overflow-hidden">
-  <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
-    <table className="min-w-[2200px] w-full text-sm text-left relative">
+   <div className="bg-white rounded-xl shadow-md border border-gray-200 mt-4">
+
+  <div className="overflow-x-scroll overflow-y-scroll h-[500px] scrollbar-thin">
+
+    <table className="min-w-[2200px] w-full text-sm text-left border-separate border-spacing-0">
       {/* Header */}
-      <thead className="bg-gray-100 text-gray-700 uppercase text-xs tracking-wider sticky top-0 z-20">
+      <thead className="bg-gray-100 text-gray-700 uppercase text-xs tracking-wider sticky top-0 z-30">
         <tr>
           {visibleColumns.includes("assetId") && (
             <Th className="min-w-[110px]">Asset ID</Th>
@@ -245,17 +247,17 @@ const Assets = () => {
           )}
 
           {/* Sticky Actions Header */}
-          <th
-            className="
-              px-4 py-3 whitespace-nowrap font-semibold text-sm 
-              sticky right-0 z-30 
-              bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-700 
-              text-white shadow-[-4px_0_8px_-4px_rgba(0,0,0,0.15)]
-              border-l border-l-gray-300
-            "
-          >
-            Actions
-          </th>
+   <th
+  className="
+    px-4 py-3 whitespace-nowrap font-semibold text-sm 
+    sticky right-0 z-40 min-w-[120px]
+    bg-white/30 backdrop-blur-md text-gray-800
+    shadow-[-8px_0_16px_-6px_rgba(0,0,0,0.25)]
+    border-l border-white/30
+  "
+>
+  Actions
+</th>
         </tr>
       </thead>
 
@@ -319,14 +321,16 @@ const Assets = () => {
               )}
 
               {/* Sticky Actions Cell */}
-              <td
-                className="
-                  px-4 py-3 whitespace-nowrap 
-                  sticky right-0 z-10 
-                  bg-white shadow-[-6px_0_10px_-6px_rgba(0,0,0,0.12)] 
-                  border-l border-l-gray-200
-                "
-              >
+             <td
+  className="
+    px-4 py-3 whitespace-nowrap 
+    sticky right-0 z-30
+    min-w-[120px]
+    bg-white/70 backdrop-blur-md
+    shadow-[-8px_0_16px_-6px_rgba(0,0,0,0.25)]
+    border-l border-white/30
+  "
+>
                 <div className="flex items-center gap-2 justify-center">
                   <Tooltip title="Edit Asset">
                     <IconButton
@@ -362,12 +366,15 @@ const Assets = () => {
 
 // Table Head Cell
 const Th = ({ children }) => (
-  <th className="px-4 py-3 whitespace-nowrap font-semibold text-sm">{children}</th>
+  <th className="px-4 py-3 whitespace-nowrap font-semibold text-sm bg-gray-100">
+    {children}
+  </th>
 );
 
-// Table Body Cell
 const Td = ({ children }) => (
-  <td className="px-4 py-3 whitespace-nowrap text-gray-700">{children || "-"}</td>
+  <td className="px-4 py-3 whitespace-nowrap text-gray-700 bg-white">
+    {children || "-"}
+  </td>
 );
 
 export default Assets;

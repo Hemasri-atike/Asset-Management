@@ -130,8 +130,8 @@ const EditCustodian = () => {
             <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 label="Reporting Authority"
-                name="reporting_authority"
-                value={formData.reporting_authority}
+                name="reportingAuthority"
+                value={formData.reportingAuthority}
                 onChange={handleChange}
                 fullWidth
               />
